@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ECommerceDemo.Models.ProductsDTO>;
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+<h2>Edit Product</h2>
+
+
+@using (Html.BeginForm("Update", "Product", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Product</h4>
+    <hr />
+
+    @foreach (var item in Model)
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => item.ProductId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => item.ProdName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => item.ProdName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => item.ProdName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => item.ProdDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => item.ProdDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => item.ProdDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => item.ProdCatId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => item.ProdCatId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => item.ProdCatId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => item.AttributeName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => item.AttributeName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => item.AttributeName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => item.AttributeValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => item.AttributeValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => item.AttributeValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("Back", "Products")
+        </div>
+    </div>
+</div>
+
+}
+
